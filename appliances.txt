@@ -1,0 +1,3 @@
+Cooker|150|1
+Heater|120|1
+Fan|65|5

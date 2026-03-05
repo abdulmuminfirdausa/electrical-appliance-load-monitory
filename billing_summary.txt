@@ -1,0 +1,11 @@
+============= BILLING REPORT =============
+No.  Name              kWh/day     Cost/day    
+------------------------------------------
+1    Cooker            0.150       33.75       
+2    Heater            0.120       27.00       
+3    Fan               0.325       73.12       
+------------------------------------------
+Total Energy (per day): 0.595 kWh/day
+Total Cost (per day):   133.88
+Monthly Energy (30d):   17.850 kWh
+Monthly Cost (30d):     4016.25
