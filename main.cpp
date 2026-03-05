@@ -1,89 +1,91 @@
 #include <iostream>
 #include <vector>
-#include <string>
+#include <iomanip>
 
 using namespace std;
 
-// Structure to store appliance information
-struct Appliance
-{
+// Structure to store appliance data
+struct Appliance {
     string name;
     double power;
     double hours;
 };
 
-// Function to register appliance
-void registerAppliance(vector<Appliance>& appliances)
-{
-    Appliance a;
-
-    cout << "Enter appliance name: ";
-    cin >> a.name;
-
-    cout << "Enter power rating (W): ";
-    cin >> a.power;
-
-    cout << "Enter hours used per day: ";
-    cin >> a.hours;
-
-    appliances.push_back(a);
-
-    cout << "Appliance added successfully.\n";
+// Function to calculate energy
+double calculateEnergy(double power, double hours) {
+    return (power * hours) / 1000;
 }
 
-// Function to display appliances
-void viewAppliances(const vector<Appliance>& appliances)
-{
-    if (appliances.empty())
-    {
-        cout << "No appliances registered.\n";
-        return;
-    }
+int main() {
 
-    cout << "\nRegistered Appliances\n";
-
-    for (int i = 0; i < appliances.size(); i++)
-    {
-        cout << i + 1 << ". "
-             << appliances[i].name << " | "
-             << appliances[i].power << "W | "
-             << appliances[i].hours << " hrs\n";
-    }
-}
-
-int main()
-{
     vector<Appliance> appliances;
+
     int choice;
 
-    do
-    {
-        cout << "\nElectrical Appliance Load Monitoring\n";
+    while (true) {
+
+        cout << "\nElectrical Load Monitoring System\n";
         cout << "1. Register Appliance\n";
         cout << "2. View Appliances\n";
+        cout << "3. Energy Summary\n";
         cout << "0. Exit\n";
-        cout << "Enter choice: ";
+        cout << "Choice: ";
         cin >> choice;
 
-        switch(choice)
-        {
-            case 1:
-                registerAppliance(appliances);
-                break;
+        if (choice == 1) {
 
-            case 2:
-                viewAppliances(appliances);
-                break;
+            Appliance a;
 
-            case 0:
-                cout << "Exiting program...\n";
-                break;
+            cout << "Enter appliance name: ";
+            cin >> a.name;
 
-            default:
-                cout << "Invalid option\n";
+            cout << "Enter power (Watts): ";
+            cin >> a.power;
+
+            cout << "Enter hours used per day: ";
+            cin >> a.hours;
+
+            appliances.push_back(a);
+
         }
 
-    } while(choice != 0);
+        else if (choice == 2) {
+
+            for (auto a : appliances) {
+                cout << a.name << "  "
+                     << a.power << "W  "
+                     << a.hours << " hours\n";
+            }
+
+        }
+
+        else if (choice == 3) {
+
+            double totalEnergy = 0;
+
+            cout << "\nEnergy Summary\n";
+
+            for (auto a : appliances) {
+
+                double energy = calculateEnergy(a.power, a.hours);
+
+                cout << a.name << " -> "
+                     << fixed << setprecision(2)
+                     << energy << " kWh/day\n";
+
+                totalEnergy += energy;
+            }
+
+            cout << "Total Energy: "
+                 << totalEnergy
+                 << " kWh/day\n";
+        }
+
+        else if (choice == 0) {
+            break;
+        }
+
+    }
 
     return 0;
 }
